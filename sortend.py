@@ -51,22 +51,22 @@ class LinkedList:
         _OldLE._NE = _LE
         return
 
-    def removeFirst(self):
-        """This method removes and returns the first element from this list.
-        It returns null if the list is empty."""
+    def clear(self):
+        """Remove all elements from this list."""
         _First = self._FE
         if _First == None:
             return None
         else:
-            self._FE = _First._NE
-            _output = _First
-            _First = None
-            return _output._Elem
+            while(_First):
+                self._FE = _First._NE
+                _First = None
+                _First = self._FE
+            return
 
     def getlist(self,index):
         """Return the content of all elements up to given index."""
         if self.size() == 0:
-            return None
+            return  []
         else:
             _n = self.size()
             _lista = [0]*n
@@ -74,12 +74,27 @@ class LinkedList:
             _count = 0
             while(_temp):
                 if (_count == index-1):
-                    _lista[_count] = _temp._Elem[1]
+                    _lista[_count] = _temp._Elem
                     return _lista
-                _lista[_count] = _temp._Elem[1]
+                _lista[_count] = _temp._Elem
                 _count +=1
                 _temp = _temp._NE
             return []
+
+    def get(self,index):
+        """Return the element at the specified position in this list.
+        Return null if index is out of bounds."""
+        if self.size() == 0:
+            return None
+        else:
+            _temp = self._FE
+            _count = 0
+            while(_temp):
+                if (_count == index-1):
+                    return _temp._Elem
+                _count +=1
+                _temp = _temp._NE
+            return None
 
     def size(self):
         """Return the number of elements in a linked list."""
@@ -89,6 +104,12 @@ class LinkedList:
             _count += 1
             _temp = _temp._NE
         return _count
+
+def _syntax(lista):
+    """This  private function tries to find the word class based on the context.
+    Retrurn the word class."""
+    
+    return
 
 def sortend(lista):
     """Sort the elements of input list to word class after endings.
@@ -146,7 +167,7 @@ def sortend(lista):
             tall.addLast(lista[i])
             lista[i] = [lista[i], "tall"]
         elif lista[i] == "er":
-            tall.addLast(lista[i])
+            verb.addLast(lista[i])
             lista[i] = [lista[i], "verb"]
         elif orevre.match(lista[i]):
             verb.addLast(lista[i])
@@ -185,22 +206,49 @@ def sortend(lista):
             resten.addLast(lista[i])
             lista[i] = [lista[i], "oklart"]
     n = usikker.size()
+    usikre = usikker.getlist(n)
     if n>0:
-        if len(lista) <= 10:
-            a = [""]*len(lista)
-            for i in range(n):
-                for j in range(len(lista)):
-                    a[-1-j] = lista[-1-j][1]
-                
-        else:
-            usikre = usikker.getlist(n)
-            for i in range(n):
-                a = [""]*11
-                for j in range(11):
-                    if usikre[i]<5:
-                        a[j] = lista[j][1]
-                    elif usikre[i]>len(lista)-6:
-                        a[10-j] = lista[-1-j][1]
-                    else:
-                        a[i] = lista[j-5][1]
-                
+        a = [""]*11
+        for i in range(n):
+            elem = usikre[i]
+            a[5] = elem[1]
+            if a[5] < 5:
+                j = 0
+                while a[5]-j > 0:
+                    a[4-j] = lista[a[5]-j-1][1]
+                    j += 1
+                j = 0
+                while (j <= 4 or a[5]+j <= len(lista)):
+                    a[6+j] = lista[a[5]+j+1][1]
+                    j +=1
+            elif a[5] > len(lista)-5:
+                j = 0
+                while j <= 4:
+                    a[4-j] = lista[a[5]-j-1][1]
+                    j += 1
+                j = 0
+                while (j < 5 or len(lista) > a[5]+j):
+                    a[6+j] = lista[a[5]+j+1][1]
+                    j += 1
+             else:
+                j = 0
+                while j <= 4:
+                    a[4-j] = lista[a[5]-j-1][1]
+                    j += 1
+                j = 0
+                while j <= 4:
+                    a[6+j] = lista[a[5]+j+1][1]
+                    j +=1
+            if _syntax(a) == "sub":
+                sub.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]], "sub"]
+            elif _syntax(a) == "verb":
+                verb.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]], "verb"]
+            elif _syntax(a) == "adj":
+                adj.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]], "adj"]
+            else:
+                resten.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]], "oklart"]
+        usikker.clear()
