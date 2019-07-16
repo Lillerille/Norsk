@@ -63,9 +63,8 @@ class LinkedList:
             _First = None
             return _output._Elem
 
-    def get(self,index):
-        """Return the element at the specified position in this list.
-        Return null if index is out of bounds"""
+    def getlist(self,index):
+        """Return the content of all elements up to given index."""
         if self.size() == 0:
             return None
         else:
@@ -110,7 +109,7 @@ def sortend(lista):
     # ere = Linkedlist()
     # fe = Linkedlist()
     
-    subre = re.compile(r"([a-zåæø]*((by|bye(n|r|ne))|(((en|all)er|lo|strate|litur|ele|kirur|al)gi|((en|all)er|lo|strate|litur|ele|kirur|al)gie([nr]|ne))|(else|else([ntra]|ne))|(hete([nr]|ne))|(ing|inge([nr]|ne))|(ikk|ikken|(?<!s)ikker|ikkene)|(skap|skap((e[tn]|(ne))|a))|(sjon|sjone([nr]|ne))|(ment|mente([tra]|(ne)))|(en|ene)|(ett|ette(t|ne))|(mel|melen|mle(r|ne))|(neste|neste([nr]|ne))|(iste|iste([nr]|ne))|([lg]ås|[gl]åsen|gåsa|gj[eæ]ss|[gl]åser|[gl]åsene|gj[æe]ssene)|(ang|angen|[ea]nger|[ea]ngene)|((f|sl)ange|(f|sl)angen|(f|sl)anger|(f|sl)angene)|(age|age([rn]|ne))|(lager|lageret|lagret|lagre|lagrene|lagerene)|(areal|eale([tr]|ne))|(brev|brev(et|er|ene|a))|(f|fe([tn]|ne)|afer)|(am|ame|ame([nr]|ne)|amme([nrt]|ne))|(([ts]|eni)ør|([ts]|eni)øre([nr]|ne))|(yre|yre([tnr]|ne))|(ed|ede([trn]|ne))|(ti|ti(e([tnr]|ne)|[tn]))|(an|a(n|nn)e([nr]|ne))|(m[ae]n|mannen|mennene)|(ende([nr]|ne))|((til|for)hør(et|ene))|(ramme([nr]|ene))|((?<!be)stemme([nr]|ne))|(erne))[s]*$)")
+    subre = re.compile(r"([a-zåæø]*((år|året|årene|morgen|måned|kveld|dag|minutt|sekund|uke|(sekunde|minutte|uke|månede|dage|kvelde|morgene)([tnr]|ne)|natt|natt(a|en)|nette(r|ne))|(mål|måle(t|ne))|(by|bye(n|r|ne))|(((en|all)er|lo|strate|litur|ele|kirur|al)gi|((en|all)er|lo|strate|litur|ele|kirur|al)gie([nr]|ne))|(else|else([ntra]|ne))|(hete([nr]|ne))|(ing|inge([nr]|ne))|(ikk|ikken|(?<!s)ikker|ikkene)|(skap|skap((e[tn]|(ne))|a))|(sjon|sjone([nr]|ne))|(ment|mente([tra]|(ne)))|(en|ene)|(ett|ette(t|ne))|(mel|melen|mle(r|ne))|(neste|neste([nr]|ne))|(iste|iste([nr]|ne))|([lg]ås|[gl]åsen|gåsa|gj[eæ]ss|[gl]åser|[gl]åsene|gj[æe]ssene)|(ang|angen|[ea]nger|[ea]ngene)|((f|sl)ange|(f|sl)angen|(f|sl)anger|(f|sl)angene)|(age|age([rn]|ne))|(lager|lageret|lagret|lagre|lagrene|lagerene)|(areal|eale([tr]|ne))|(brev|brev(et|er|ene|a))|(f|fe([tn]|ne)|afer)|(am|ame|ame([nr]|ne)|amme([nrt]|ne))|(([ts]|eni)ør|([ts]|eni)øre([nr]|ne))|(yre|yre([tnr]|ne))|(ed|ede([trn]|ne))|(ti|ti(e([tnr]|ne)|[tn]))|(an|a(n|nn)e([nr]|ne))|(m[ae]n|mannen|mennene)|(ende([nr]|ne))|((til|for)hør(et|ene))|(ramme([nr]|ene))|((?<!be)stemme([nr]|ne))|(erne))[s]*$)")
     # főnevek               oki
     # ska kollas efter adjektiven
     verbre = re.compile(r"([a-z|åæø]*((ere[rs])|(r[ui]ste|r[ui]ste[rs]|r[ui]stet|r[ui]stets)|(niste|nistet|nister|nistes|nistets)|((kl|[lj])age|(kl|l)age[rs]|(kl|l)aget|(kl|l)agets)|(styre|styr(er|te|t)[s]*)|(øre|kjør|hør(e|er|te|t)[s]*)|([fg]å|[fg](å[rs]|ikk|tt)[s]*|mått(e|et)[s]*|må[s]*)|(virke|virke[rts][s]*)|([aeiouyåæø][bcdfhjklmnprstz](e|e[rs]|te|es|t|ts))|(([vg]|ei|ai|øy|au|eu)(e|s|e[rs]|de|des|d|ds))|(nå|når|nås|nådde|nåddes|nådd|nådds))$)")
@@ -121,19 +120,19 @@ def sortend(lista):
     # ska kollas först
     adjre = re.compile(r"([a-zåøæ]*((ig|ig([te]|ste|st|ere))|(bar|bar(t|e))|(full|full([te]|e(re|st|ste)))|(sikker|sikkert|sikre|sikre(re|st|ste))|(ell|ell[te])|(sk|sk(t|e))|sjeld(en|ent|ne|nere|nest|neste)|([st]iv|[ts]iv[te])|(løs|løs[te])|(gammel|gammelt|gamle|eldre|eldst|eldste)|(lit(en|[ae])|smått|små|lille|vesle||mindre|minst)|(lang|lang[te]|leng(re|st|ste))|(som|som(t|me))|(ende)|(dt|dte)|annerledes|likendes|ringe|rosa|søndre|søre|umake|(øde)|(syk|syk([te]|ere|est|este))|(myk|myk([te]|ere|est|este))|(fri|fri(tt|e|ere|est|este))|(blakk|blak(t|ke|kere|kest|keste)|blå|blå(tt|e|ere|est|este)|brun|brun([te]|ere|est|este)|grå|grå(tt|e|ere|est|este)|grøn|grøn([nt]|ne|nere|nest|neste)|gul|gul([te]|ere|est|este)|hvit|hvit([te]|ere|est|este)|klar|klar([te]|ere|est|este)|lilla|l(jo|y)s|l(jo|y)s([te]|ere|est|este)|oran(g|sj)e|rød|rø(tt|de|dere|dest|deste)|svart|svart(e|ere|est|este)|turkis|turkis[te])|(dags|dagse)|(sen|sen([te]|ere|est|este)))$)")
     # melléknevek           oki
-    advre = re.compile(r"((ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|ofte|ofte(re|st|ste)|aldri|alltid|sjeldsynt|kan(skje|hende))|[a-zåøæ]*(igens|igvis)$)")
+    advre = re.compile(r"((inatt|imorgen|idag|ikveld|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|ofte|ofte(re|st|ste)|aldri|alltid|sjeldsynt|kan(skje|hende)|selve|sjølve|selveste)|[a-zåøæ]*(igens|igvis)$)")
     # határozószók          oki
     # ska kollas innan adjektiven
-    pronomre = re.compile(r"((de[nt]|noen|noe|inge[nt]|[smd]eg|oss|dere|deres|de|dem|vi|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|jeg|du|ha[nm]|hun|dens|dets|denne|dette|disse|dennes|dettes|disses)$)")
+    pronomre = re.compile(r"((de[nt]|noen|noe|inge[nt]|[smd]eg|oss|dere|deres|de|dem|vi|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|jeg|du|ha[nm]|hun|dens|dets|denne|dette|disse|dennes|dettes|disses|selv|sjøl)$)")
     # névmások              oki
     tallre = re.compile(r"([a-zåøæ]*(først|første|én|to|annen|annet|andre|anna|(tre|tredje|fire|fjerde|fem|femte|seks|sjette|syv|sjuende|åtte|åttende|(ni|ti)(ende)*|elleve|ellevte|tolv|tolvte|(tretten|fjorten|femten|seksten|sytten|atten|nitten)(de)*|tjue|tjue(en|ett|nde)|(tretti|førti|femti|seksti|sytti|åtti|nitti)(en|ett|et|ende)*|(hundre)(de)*|(tusen)(de)*|(million)(te)*|milliard(te)*)(del|delen|deler|delene)*|halvannen|halvannet|dobbel|dobbelt|doble)$)")
     # számnevek             oki
     # ska kollas innan adjektiven. "og en" & "og et" saknas men det får vara.
-    core = re.compile(r"((og|eller|men|så|som)$)")
+    core = re.compile(r"((og|eller|men|så|å|at|som|da)$)")
     # kötőszavak            oki
-    interre = re.compile(r"((nei|ja|adjø|ah|aha|ai|akk|amen|au|basta|bjeff|bravo|bu|bø|eia|faen|fint|gratla|ha|hallo|he|hei|hi|hu|huff|hæ|jada|jaggu|jo|joda|klukk|knegg|konge|kvekk|kykeliky|mjau|morn|neida|nja|no|nøff|pass|puss|pytt|rassh[oø]l|rett|sikkert|så|særlig|takk|tja|uff|unnskyld|ve|velkommen|voff|å|æsj|beklager|hilsen|fett|greit|nydelig)$)")
+    interre = re.compile(r"((nei|ja|adjø|ah|aha|ai|akk|amen|au|basta|bjeff|bravo|bu|bø|eia|faen|fint|gratla|ha|hallo|he|hei|hi|hu|huff|hæ|jada|jaggu|jo|joda|klukk|knegg|konge|kvekk|kykeliky|mjau|morn|neida|nja|no|nøff|pass|puss|pytt|rassh[oø]l|rett|sikkert|særlig|takk|tja|uff|unnskyld|ve|velkommen|voff|æsj|beklager|hilsen|fett|greit|nydelig)$)")
     # interjekciók          oki
-    prepre = re.compile(r"((ved|ad|att|attpå|av|bak|bortom|etter|for|foran|formedelst|fra|før|gjennom|hos|i|ifra|ifølge|igjennom|imot|innafor|innen|innenfor|inni|istedenfor|mellom|mot|omkring|oppover|oppå|ovenfor|over|overfor|på|til|uansett|under|uten|utenfor|utenfra|van|yvi)$)")
+    prepre = re.compile(r"((ved|ad|att|attpå|av|bak|bortom|etter|for|foran|formedelst|fra|før|gjennom|hos|i|ifra|ifølge|igjennom|imot|innafor|innen|innenfor|inn|inni|istedenfor|mellom|mot|omkring|oppover|oppå|ovenfor|over|overfor|på|til|uansett|under|uten|utenfor|utenfra|van|yvi)$)")
     # prepozíciók           oki
     usikkerre = re.compile(r"([a-zåøæ]*(et|ets|te|skap|skap(e[rts]|e|ets|er|es|ere|erer)|fe|fer)$)")
     #                       oki
@@ -143,10 +142,10 @@ def sortend(lista):
             tall.addLast(lista[i])
             lista[i] = [lista[i], "tall"]   # Man förändrar elementet innanför listan
                                             # för bättre tidskomplexitet.
-        elif lista[i] == "ei"
+        elif lista[i] == "ei":
             tall.addLast(lista[i])
             lista[i] = [lista[i], "tall"]
-        elif lista[i] == "er"
+        elif lista[i] == "er":
             tall.addLast(lista[i])
             lista[i] = [lista[i], "verb"]
         elif orevre.match(lista[i]):
@@ -188,16 +187,20 @@ def sortend(lista):
     n = usikker.size()
     if n>0:
         if len(lista) <= 10:
-            a = [0]*len(lista)
-            for i in range(len(lista)):
-                a[i] = lista[i][1]
-        else:
-            usikre = usikker.get(n)
+            a = [""]*len(lista)
             for i in range(n):
+                for j in range(len(lista)):
+                    a[-1-j] = lista[-1-j][1]
+                
+        else:
+            usikre = usikker.getlist(n)
+            for i in range(n):
+                a = [""]*11
                 for j in range(11):
                     if usikre[i]<5:
-                        ...
+                        a[j] = lista[j][1]
                     elif usikre[i]>len(lista)-6:
-                        ...
+                        a[10-j] = lista[-1-j][1]
                     else:
                         a[i] = lista[j-5][1]
+                
