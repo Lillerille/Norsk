@@ -1,8 +1,9 @@
 # Richárd Bagi, Norsk Projekt 2019
 
-from splittare import splittare
+# from splittare import splittare
+from syntax import syntax
 import re
-import tkinter as tk
+# import tkinter as tk
 
 class Node:
     """This class implements a node to a singly linked list."""
@@ -75,63 +76,6 @@ class LinkedList:
             _count += 1
             _temp = _temp._NE
         return _count
-
-def _syntax(lista):
-    """This  private function tries to find the word class based on the context.
-    Retrurn the word class."""
-    output = ""
-    if ((lista[4] is "verb") and (lista[6] is "konj") and (type(lista[7]) is not int) and (lista[7] is not "verb"))):
-        output = "subj"
-    elif ((lista[4] is "verb") and (lista[6] is "konj") and (lista[7] is "adv") and (lista[8] is not "verb")):
-        output = "subj"
-    elif ((lista[4] is "verb") and (lista[6] is "konj") and (type(lista[7]) is not int) and (lista[7] is "verb"))):
-        output = "verb"
-    elif ((lista[4] is "verb") and (lista[6] is "konj") and (lista[7] is "adv") and (lista[8] is "verb")):
-        output = "verb"
-    elif ((lista[0] is "pron") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adj" or "adv" or "tall" or "konj"))):
-        output = "subj"
-    elif ((lista[1] is "pron") and ((lista[2] and lista[3] and lista[4]) is ("adj" or "adv" or "tall" or "konj"))):
-        output = "subj"
-    elif ((lista[2] is "pron") and ((lista[3] and lista[4]) is ("adj" or "adv" or "tall"))):
-        output = "subj"
-    elif ((lista[3] is "pron") and (lista[4] is ("adj" or "tall"))):
-        output = "subj"
-    elif ((lista[3] is "pron") and (lista[4] is "adv") and (lista[6] is "konj")):
-        output = "subj"
-    elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adv" or "konj"))):
-        output = "verb"
-    elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adv" or "konj"))):
-        output = "verb"
-    elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is "adv")):
-        output = "verb"
-    elif ((lista[3] is "verb") and (lista[4] is "adv")):
-        output = "verb"
-    elif ((lista[3] and lista[4]) is "prepo"):
-        output = "subj"
-    elif ((lista[3] is "prepo") and (lista[4] is "pron")):
-        output = "subj"
-    elif lista[4] is "":
-        if ((lista[6] is "pron") and (lista[7] is not "konj")):
-            output = "verb"
-        elif lista[6] is "tall":
-            output = "verb"
-        elif ((lista[6] is "pron") and (lista[7] is "konj") and (type(lista[8]) is int)):
-            if lista[9] is ("pron" or "prepo"):
-                output = "verb"
-            else:
-                output = "subj"
-        else:
-            output = "subj"
-    elif 
-    return output
-
-# if prepo ? pron => 
-# if pron ? pron => verb # jeg husker det
-# if conj pron ? => verb
-# if ? pron/tall => verb
-# if ? ... => subj
-# verb (pron/tall/adj/arv) subj ? => subj
-
 
 def sortend(lista):
     """Sort the elements of input list to word class after endings.
@@ -266,10 +210,10 @@ def sortend(lista):
                 verb.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "verb"]
                 kollade[lista[a[5]]] = "verb"
-#            elif synt == "adj":
-#                adj.addLast(lista[a[5]])
-#                lista[a[5]] = [lista[a[5]], "adj"]
-#                kollade[lista[a[5]]] = "adj"
+            elif synt == "adj":
+                adj.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]], "adj"]  # en kastet boll
+                kollade[lista[a[5]]] = "adj"
             else:
                 resten.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "oklart"]
