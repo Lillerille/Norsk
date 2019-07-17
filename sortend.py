@@ -10,20 +10,6 @@ class Node:
     def __init__(self,elem = None):
         """Create element properties"""
         self._Elem = elem # arbirtary element in list
-        # self._Su = None
-        # self._Ve = None
-        # self._Ov = None
-        # self._Aj = None
-        # self._Av = None
-        # self._Ta = None
-        # self._Co = None
-        # self._Pr = None
-        # self._In = None
-        # self._et = None
-        # self._te = None
-        # self._sk = None
-        # self._ere = None
-        # self._fere = None
         self._NE = None # pointer, NextElement
 
 class LinkedList:
@@ -118,10 +104,6 @@ def sortend(lista):
     prepo = LinkedList()
     usikker = LinkedList()
     resten = Linkedlist()
-    # te = Linkedlist()
-    # skaper = Linkedlist()
-    # ere = Linkedlist()
-    # fe = Linkedlist()
     
     subre = re.compile(r"([a-zåæø]*((år|året|årene|morgen|måned|kveld|dag|minutt|sekund|uke|(sekunde|minutte|uke|månede|dage|kvelde|morgene)([tnr]|ne)|natt|natt(a|en)|nette(r|ne))|(mål|måle(t|ne))|(by|bye(n|r|ne))|(((en|all)er|lo|strate|litur|ele|kirur|al)gi|((en|all)er|lo|strate|litur|ele|kirur|al)gie([nr]|ne))|(else|else([ntra]|ne))|(hete([nr]|ne))|(ing|inge([nr]|ne))|(ikk|ikken|(?<!s)ikker|ikkene)|(skap|skap((e[tn]|(ne))|a))|(sjon|sjone([nr]|ne))|(ment|mente([tra]|(ne)))|(en|ene)|(ett|ette(t|ne))|(mel|melen|mle(r|ne))|(neste|neste([nr]|ne))|(iste|iste([nr]|ne))|([lg]ås|[gl]åsen|gåsa|gj[eæ]ss|[gl]åser|[gl]åsene|gj[æe]ssene)|(ang|angen|[ea]nger|[ea]ngene)|((f|sl)ange|(f|sl)angen|(f|sl)anger|(f|sl)angene)|(age|age([rn]|ne))|(lager|lageret|lagret|lagre|lagrene|lagerene)|(areal|eale([tr]|ne))|(brev|brev(et|er|ene|a))|(f|fe([tn]|ne)|afer)|(am|ame|ame([nr]|ne)|amme([nrt]|ne))|(([ts]|eni)ør|([ts]|eni)øre([nr]|ne))|(yre|yre([tnr]|ne))|(ed|ede([trn]|ne))|(ti|ti(e([tnr]|ne)|[tn]))|(an|a(n|nn)e([nr]|ne))|(m[ae]n|mannen|mennene)|(ende([nr]|ne))|((til|for)hør(et|ene))|(ramme([nr]|ene))|((?<!be)stemme([nr]|ne))|(erne))[s]*$)")
     # főnevek               oki
@@ -233,15 +215,16 @@ def sortend(lista):
                     a[6+j] = lista[a[5]+j+1][1]
                     j +=1
             kollade = {}
-            if _syntax(a, kollade) == "sub":
+            synt = _syntax(a, kollade)
+            if synt == "sub":
                 sub.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "sub"]
                 kollade[lista[a[5]]] = "sub"
-            elif _syntax(a, kollade) == "verb":
+            elif synt == "verb":
                 verb.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "verb"]
                 kollade[lista[a[5]]] = "verb"
-            elif _syntax(a, kollade) == "adj":
+            elif synt == "adj":
                 adj.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "adj"]
                 kollade[lista[a[5]]] = "adj"
