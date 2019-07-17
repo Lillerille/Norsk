@@ -79,8 +79,6 @@ class LinkedList:
 def _syntax(lista):
     """This  private function tries to find the word class based on the context.
     Retrurn the word class."""
-    # input: ["a", "b", "c", "d", "e", num, "f", "g", "h", "i", "j"]
-    # [0,"conj","pron","verb","verb",kysset,"pron","tall",8,"core","sub"]
     output = ""
     if ((lista[4] is "verb") and (lista[6] is "konj") and (type(lista[7]) is not int) and (lista[7] is not "verb"))):
         output = "subj"
@@ -90,16 +88,44 @@ def _syntax(lista):
         output = "verb"
     elif ((lista[4] is "verb") and (lista[6] is "konj") and (lista[7] is "adv") and (lista[8] is "verb")):
         output = "verb"
-    elif (lista[0] is "pron" and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adj" or "adv" or "tall" or "conj"))):
+    elif ((lista[0] is "pron") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adj" or "adv" or "tall" or "konj"))):
         output = "subj"
+    elif ((lista[1] is "pron") and ((lista[2] and lista[3] and lista[4]) is ("adj" or "adv" or "tall" or "konj"))):
+        output = "subj"
+    elif ((lista[2] is "pron") and ((lista[3] and lista[4]) is ("adj" or "adv" or "tall"))):
+        output = "subj"
+    elif ((lista[3] is "pron") and (lista[4] is ("adj" or "tall"))):
+        output = "subj"
+    elif ((lista[3] is "pron") and (lista[4] is "adv") and (lista[6] is "konj")):
+        output = "subj"
+    elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adv" or "konj"))):
+        output = "verb"
+    elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adv" or "konj"))):
+        output = "verb"
+    elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is "adv")):
+        output = "verb"
+    elif ((lista[3] is "verb") and (lista[4] is "adv")):
+        output = "verb"
+    elif ((lista[3] and lista[4]) is "prepo"):
+        output = "subj"
+    elif ((lista[3] is "prepo") and (lista[4] is "pron")):
+        output = "subj"
+    elif lista[4] is "":
+        if ((lista[6] is "pron") and (lista[7] is not "konj")):
+            output = "verb"
+        elif lista[6] is "tall":
+            output = "verb"
+        elif ((lista[6] is "pron") and (lista[7] is "konj") and (type(lista[8]) is int)):
+            if lista[9] is ("pron" or "prepo"):
+                output = "verb"
+            else:
+                output = "subj"
+        else:
+            output = "subj"
+    elif 
     return output
 
-# if verb, adverb+, -et => verb
-# if pron, tall+/adv+/adj+(/conj) (-en|-et|-er|-e)s => subj
-# if pronomen adverb ? con => subj
-# if prepo prepo ? => subj
 # if prepo ? pron => 
-# if prep pron ? => subj
 # if pron ? pron => verb # jeg husker det
 # if conj pron ? => verb
 # if ? pron/tall => verb
