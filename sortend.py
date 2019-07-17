@@ -81,7 +81,18 @@ def _syntax(lista):
     Retrurn the word class."""
     # input: ["a", "b", "c", "d", "e", num, "f", "g", "h", "i", "j"]
     # [0,"conj","pron","verb","verb",kysset,"pron","tall",8,"core","sub"]
-    return
+    output = ""
+    if ((lista[4] is "verb") and (lista[6] is "konj") and (type(lista[7]) is not int) and (lista[7] is not "verb"))):
+        output = "subj"
+    elif ((lista[4] is "verb") and (lista[6] is "konj") and (lista[7] is "adv") and (lista[8] is not "verb")):
+        output = "subj"
+    elif ((lista[4] is "verb") and (lista[6] is "konj") and (type(lista[7]) is not int) and (lista[7] is "verb"))):
+        output = "verb"
+    elif ((lista[4] is "verb") and (lista[6] is "konj") and (lista[7] is "adv") and (lista[8] is "verb")):
+        output = "verb"
+    elif (lista[0] is "pron" and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adj" or "adv" or "tall" or "conj"))):
+        output = "subj"
+    return output
 
 # if verb, adverb+, -et => verb
 # if pron, tall+/adv+/adj+(/conj) (-en|-et|-er|-e)s => subj
@@ -111,7 +122,7 @@ def sortend(lista):
     usikker = LinkedList()
     resten = Linkedlist()
     
-    subre = re.compile(r"([a-zåæø]*((rn|rne([rnt]|ne)|år|året|årene|morgen|måned|kveld|dag|minutt|sekund|uke|(sekunde|minutte|uke|månede|dage|kvelde|morgene)([tnr]|ne)|natt|natt(a|en)|nette(r|ne))|(mål|måle(t|ne))|(by|bye(n|r|ne))|(((en|all)er|lo|strate|litur|ele|kirur|al)gi|((en|all)er|lo|strate|litur|ele|kirur|al)gie([nr]|ne))|(else|else([ntra]|ne))|(hete([nr]|ne))|(ing|inge([nr]|ne))|(ikk|ikken|(?<!s)ikker|ikkene)|(skap|skap((e[tn]|(ne))|a))|(sjon|sjone([nr]|ne))|(ment|mente([tra]|(ne)))|(en|ene)|(ett|ette(t|ne))|(mel|melen|mle(r|ne))|(neste|neste([nr]|ne))|(iste|iste([nr]|ne))|([lg]ås|[gl]åsen|gåsa|gj[eæ]ss|[gl]åser|[gl]åsene|gj[æe]ssene)|(ang|angen|[ea]nger|[ea]ngene)|((f|sl)ange|(f|sl)angen|(f|sl)anger|(f|sl)angene)|(age|age([rn]|ne))|(lager|lageret|lagret|lagre|lagrene|lagerene)|(areal|eale([tr]|ne))|(brev|brev(et|er|ene|a))|(f|fe([tn]|ne)|afer)|(am|ame|ame([nr]|ne)|amme([nrt]|ne))|(([ts]|eni)ør|([ts]|eni)øre([nr]|ne))|(yre|yre([tnr]|ne))|(ed|ede([trn]|ne))|(ti|ti(e([tnr]|ne)|[tn]))|(an|a(n|nn)e([nr]|ne))|(m[ae]n|mannen|mennene)|(ende([nr]|ne))|((til|for)hør(et|ene))|(ramme([nr]|ene))|((?<!be)stemme([nr]|ne))|(erne))[s]*$)")
+    subre = re.compile(r"([a-zåæø]*(([nt]iker|[nt]iker(e(n|ne)|e)|rn|rne([rnt]|ne))|(år|året|årene|morgen|måned|kveld|dag|minutt|sekund|uke|(sekunde|minutte|uke|månede|dage|kvelde|morgene)([tnr]|ne)|natt|natt(a|en)|nette(r|ne))|(mål|måle(t|ne))|(by|bye(n|r|ne))|(((en|all)er|lo|strate|litur|ele|kirur|al)gi|((en|all)er|lo|strate|litur|ele|kirur|al)gie([nr]|ne))|(else|else([ntra]|ne))|(hete([nr]|ne))|(ing|inge([nr]|ne))|(ikk|ikken|(?<!s)ikker|ikkene)|(skap|skap((e[tn]|(ne))|a))|(sjon|sjone([nr]|ne))|(ment|mente([tra]|(ne)))|(en|ene)|(ett|ette(t|ne))|(mel|melen|mle(r|ne))|(neste|neste([nr]|ne))|(iste|iste([nr]|ne))|([lg]ås|[gl]åsen|gåsa|gj[eæ]ss|[gl]åser|[gl]åsene|gj[æe]ssene)|(ang|angen|[ea]nger|[ea]ngene)|((f|sl)ange|(f|sl)angen|(f|sl)anger|(f|sl)angene)|(age|age([rn]|ne))|(lager|lageret|lagret|lagre|lagrene|lagerene)|(areal|eale([tr]|ne))|(brev|brev(et|er|ene|a))|(f|fe([tn]|ne)|afer)|(am|ame|ame([nr]|ne)|amme([nrt]|ne))|(([ts]|eni)ør|([ts]|eni)øre([nr]|ne))|(yre|yre([tnr]|ne))|(ed|ede([trn]|ne))|(ti|ti(e([tnr]|ne)|[tn]))|(an|a(n|nn)e([nr]|ne))|(m[ae]n|mannen|mennene)|(ende([nr]|ne))|((til|for)hør(et|ene))|(ramme([nr]|ene))|((?<!be)stemme([nr]|ne))|(erne))[s]*$)")
     # főnevek               oki
     # ska kollas efter adjektiven
     verbre = re.compile(r"([a-z|åæø]*((ere[rs])|(r[ui]ste|r[ui]ste[rs]|r[ui]stet|r[ui]stets)|(niste|nistet|nister|nistes|nistets)|((kl|[lj])age|(kl|l)age[rs]|(kl|l)aget|(kl|l)agets)|(styre|styr(er|te|t)[s]*)|(øre|kjør|hør(e|er|te|t)[s]*)|([fg]å|[fg](å[rs]|ikk|tt)[s]*|mått(e|et)[s]*|må[s]*)|(virke|virke[rts][s]*)|([aeiouyåæø][bcdfhjklmnprstz](e|e[rs]|te|es|t|ts))|(([vg]|ei|ai|øy|au|eu)(e|s|e[rs]|de|des|d|ds))|(nå|når|nås|nådde|nåddes|nådd|nådds))$)")
@@ -210,7 +221,7 @@ def sortend(lista):
                 while (j < 5 or len(lista) > a[5]+j):
                     a[6+j] = lista[a[5]+j+1][1]
                     j += 1
-             else:
+            else:
                 j = 0
                 while j <= 4:
                     a[4-j] = lista[a[5]-j-1][1]
@@ -229,10 +240,10 @@ def sortend(lista):
                 verb.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "verb"]
                 kollade[lista[a[5]]] = "verb"
-            elif synt == "adj":
-                adj.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], "adj"]
-                kollade[lista[a[5]]] = "adj"
+#            elif synt == "adj":
+#                adj.addLast(lista[a[5]])
+#                lista[a[5]] = [lista[a[5]], "adj"]
+#                kollade[lista[a[5]]] = "adj"
             else:
                 resten.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "oklart"]
