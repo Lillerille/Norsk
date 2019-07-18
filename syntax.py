@@ -32,6 +32,10 @@ def syntax(lista, dictionary):
             output = "verb"
         elif ((lista[3] is "verb") and (lista[4] is "adv")):
             output = "verb"
+        elif (((lista[3] is not ("sub" or "oklart")) and (type(lista[3]) is not int)) and (lista[4] is "verb")):
+            output = "sub"
+        elif (((lista[2] is not ("sub" or "oklart")) and (type(lista[2]) is not int)) and (lista[3] is "verb") and (lista[4] is "adv")):
+            output = "sub"
         elif ((lista[3] and lista[4]) is "prepo"):
             output = "sub"
         elif ((lista[3] is "prepo") and (lista[4] is "pron")):
@@ -54,23 +58,25 @@ def syntax(lista, dictionary):
             output = "verb"
         elif (((lista[4] and lista[2]) is "pron") and (lista[3] is "verb")):
             output = "sub"
-        elif (((lista[4] and lista[6]) is "pron") and (lista[3] is ("prepo" or "adv"))):
+        elif (((lista[4] and lista[6]) is "pron") and (lista[3] is ("prepo" or "part" or "adv"))):
             output = "sub"
-        elif ((lista[3] is "verb") and (lista[4] is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+        elif (((lista[4] and lista[1]) is "pron") and (lista[2] is "verb") and (lista[3] is ("prepo" or "part"))):
+            output = "sub"
+        elif ((lista[3] is "verb") and (lista[4] is ("adv" or "adj")) and (lista[6] is ("pron" or "prepo"))):
             output = "verb"
-        elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+        elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is ("adv" or "adj")) and (lista[6] is ("pron" or "prepo"))):
             output = "verb"
-        elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+        elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adv" or "adj")) and (lista[6] is ("pron" or "prepo"))):
             output = "verb"
-        elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+        elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adv" or "adj")) and (lista[6] is ("pron" or "prepo"))):
             output = "verb"
-        elif ((lista[3] is "verb") and (lista[4] is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+        elif ((lista[3] is "verb") and (lista[4] is ("adv" or "adj")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
             output = "verb"
-        elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+        elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is ("adv" or "adj")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
             output = "verb"
-        elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+        elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adv" or "adj")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
             output = "verb"
-        elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+        elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adv" or "adj")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
             output = "verb"
         elif ((lista[4] is "prepo") and (lista[6] is ("adj" or "adv"))):
             output = "adj"
@@ -82,7 +88,7 @@ def syntax(lista, dictionary):
             output = "sub"
         elif ((lista[4] is "pron") and ((lista[6] is "pron") or ((lista[6] is "adv") and (lista[7] is "pron")))):
             output = "verb"
-        elif ((lista[3] is "verb") and (lista[4] is ("prepo" or "part")) and (type(lista[6]) is int)):
+        elif ((lista[3] is "verb") and (lista[4] is ("prepo" or "part")) and ((type(lista[6]) is int) or (lista[6] is ("sub" or "verb")))):
             output = "adj"
         elif ((lista[2] is "verb") and (lista[3] is ("adv" or "adj")) and (lista[4] is ("prepo" or "part")) and (type(lista[6]) is int)):
             output = "adj"
@@ -106,13 +112,18 @@ def syntax(lista, dictionary):
             output = "verb"
         elif ((lista[1] is ("pron" or "sub")) and ((lista[2] and lista[3] and lista[4]) is "adv") and (lista[6] is ("prepo" or "part")) and (lista[7] is "pron") and (lista[8] is "pron")):
             output = "verb"
-        # fk
+        elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3]) is ("adv" or "part" or "prepo" or "adj" or "konj" or "tall")) and (lista[4] is "sub")):
+            output = "sub"
+        elif ((lista[1] is "verb") and (lista[2] and lista[3]) is ("adv" or "adj" or "part" or "prepo" or "tall")) and (lista[4] is "sub")):
+            output = "sub"
+        elif ((lista[2] is "verb") and (lista[3]) is ("adv" or "adj" or "tall")) and (lista[4] is "sub")):
+            output = "sub"
+        elif ((lista[6] is "pron") and (lista[7] is not "verb")):
+            output = "verb"
+        elif ((lista[6] is "pron") and ((lista[7] is "verb") or (type(lista[7]) is int))):
+            output = "sub"
+        elif (lista[6] is ("pron" or "tall")):
+            output = "verb"
         else:
             output = "oklart"
         return output
-
-# if prepo ? pron => 
-# if conj pron ? => verb
-# if ? pron/tall => verb
-# if ? ... => subj
-# verb (pron/tall/adj/adv) subj ? => subj
