@@ -56,14 +56,63 @@ def syntax(lista, dictionary):
             output = "sub"
         elif (((lista[4] and lista[6]) is "pron") and (lista[3] is ("prepo" or "adv"))):
             output = "sub"
-        
+        elif ((lista[3] is "verb") and (lista[4] is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+            output = "verb"
+        elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+            output = "verb"
+        elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+            output = "verb"
+        elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and (lista[6] is ("pron" or "prepo"))):
+            output = "verb"
+        elif ((lista[3] is "verb") and (lista[4] is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+            output = "verb"
+        elif ((lista[2] is "verb") and ((lista[3] and lista[4]) is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+            output = "verb"
+        elif ((lista[1] is "verb") and ((lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+            output = "verb"
+        elif ((lista[0] is "verb") and ((lista[1] and lista[2] and lista[3] and lista[4]) is ("adverb" or "adjektiv")) and ((lista[6] and lista[7]) is ("prepo" or "pron"))):
+            output = "verb"
+        elif ((lista[4] is "prepo") and (lista[6] is ("adj" or "adv"))):
+            output = "adj"
+        elif lista[4] is "prepo":
+            output = "sub"
+        elif ((lista[4] is "pron") and ((lista[6] is "konj") and (lista[7] is not ("sub" or "tall" or "ajd" or "adv")))):
+            output = "verb"
+        elif ((lista[4] is "pron") and ((lista[6] is "konj") and (lista[7] is ("sub" or "tall" or "ajd" or "adv")))):
+            output = "sub"
+        elif ((lista[4] is "pron") and ((lista[6] is "pron") or ((lista[6] is "adv") and (lista[7] is "pron")))):
+            output = "verb"
+        elif ((lista[3] is "verb") and (lista[4] is ("prepo" or "part")) and (type(lista[6]) is int)):
+            output = "adj"
+        elif ((lista[2] is "verb") and (lista[3] is ("adv" or "adj")) and (lista[4] is ("prepo" or "part")) and (type(lista[6]) is int)):
+            output = "adj"
+        elif ((lista[2] is "verb") and (lista[3] is ("prepo" or "part")) and (lista[4] is "adj")):
+            output = "sub"
+        elif ((lista[1] is "verb") and (lista[2] is ("adv" or "adj")) and (lista[3] is ("prepo" or "part")) and (lista[4] is "adj")):
+            output = "sub"
+        elif ((lista[3] is ("pron" or "sub")) and (lista[4] is "verb") and (lista[6] is ("part" or "prepo")) and (lista[7] is "pron")):
+            output = "sub"
+        elif ((lista[2] is ("pron" or "sub")) and ((lista[3] or lista[4]) is "verb") and ((lista[3] or lista[4]) is "adv") and (lista[6] is ("part" or "prepo")) and (lista[7] is "pron")):
+            output = "sub"
+        elif ((lista[4] is ("pron" or "sub")) and (lista[6] is "pron") and (lista[7] is "pron")):
+            output = "verb"
+        elif ((lista[4] is ("pron" or "sub")) and (lista[6] is ("prepo" or "part")) and (lista[7] is "pron") and (lista[8] is "pron")):
+            output = "verb"
+        elif ((lista[4] is ("pron" or "sub")) and ((lista[6] and lista[7]) is ("adv" or "prepo" or "part")) and (lista[8] is "pron") and (lista[9] is "pron")):
+            output = "verb"
+        elif ((lista[3] is ("pron" or "sub")) and (lista[4] is "adv") and (lista[6] is ("prepo" or "part")) and (lista[7] is "pron") and (lista[8] is "pron")):
+            output = "verb"
+        elif ((lista[2] is ("pron" or "sub")) and ((lista[3] and lista[4]) is "adv") and (lista[6] is ("prepo" or "part")) and (lista[7] is "pron") and (lista[8] is "pron")):
+            output = "verb"
+        elif ((lista[1] is ("pron" or "sub")) and ((lista[2] and lista[3] and lista[4]) is "adv") and (lista[6] is ("prepo" or "part")) and (lista[7] is "pron") and (lista[8] is "pron")):
+            output = "verb"
+        # fk
         else:
             output = "oklart"
         return output
 
-# if verb + ikke + ? + (prepo+pron)/pron = > verb  
 # if prepo ? pron => 
 # if conj pron ? => verb
 # if ? pron/tall => verb
 # if ? ... => subj
-# verb (pron/tall/adj/arv) subj ? => subj
+# verb (pron/tall/adj/adv) subj ? => subj

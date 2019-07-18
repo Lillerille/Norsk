@@ -90,7 +90,8 @@ def sortend(lista):
     inter = LinkedList()
     prepo = LinkedList()
     usikker = LinkedList()
-    resten = Linkedlist()
+    resten = LinkedList()
+    part = LinkedList()
     
     subre = re.compile(r"([a-zåæø]*(([nt]iker|[nt]iker(e(n|ne)|e)|rn|rne([rnt]|ne))|(år|året|årene|morgen|måned|kveld|dag|minutt|sekund|uke|(sekunde|minutte|uke|månede|dage|kvelde|morgene)([tnr]|ne)|natt|natt(a|en)|nette(r|ne))|(mål|måle(t|ne))|(by|bye(n|r|ne))|(((en|all)er|lo|strate|litur|ele|kirur|al)gi|((en|all)er|lo|strate|litur|ele|kirur|al)gie([nr]|ne))|(else|else([ntra]|ne))|(hete([nr]|ne))|(ing|inge([nr]|ne))|(ikk|ikken|(?<!s)ikker|ikkene)|(skap|skap((e[tn]|(ne))|a))|(sjon|sjone([nr]|ne))|(ment|mente([tra]|(ne)))|(en|ene)|(ett|ette(t|ne))|(mel|melen|mle(r|ne))|(neste|neste([nr]|ne))|(iste|iste([nr]|ne))|([lg]ås|[gl]åsen|gåsa|gj[eæ]ss|[gl]åser|[gl]åsene|gj[æe]ssene)|(ang|angen|[ea]nger|[ea]ngene)|((f|sl)ange|(f|sl)angen|(f|sl)anger|(f|sl)angene)|(age|age([rn]|ne))|(lager|lageret|lagret|lagre|lagrene|lagerene)|(areal|eale([tr]|ne))|(brev|brev(et|er|ene|a))|(f|fe([tn]|ne)|afer)|(am|ame|ame([nr]|ne)|amme([nrt]|ne))|(([ts]|eni)ør|([ts]|eni)øre([nr]|ne))|(yre|yre([tnr]|ne))|(ed|ede([trn]|ne))|(ti|ti(e([tnr]|ne)|[tn]))|(an|a(n|nn)e([nr]|ne))|(m[ae]n|mannen|mennene)|(ende([nr]|ne))|((til|for)hør(et|ene))|(ramme([nr]|ene))|((?<!be)stemme([nr]|ne))|(erne))[s]*$)")
     # főnevek               oki
@@ -103,19 +104,21 @@ def sortend(lista):
     # ska kollas först
     adjre = re.compile(r"([a-zåøæ]*((ig|ig([te]|ste|st|ere))|(bar|bar(t|e))|(full|full([te]|e(re|st|ste)))|(sikker|sikkert|sikre|sikre(re|st|ste))|(ell|ell[te])|(sk|sk(t|e))|sjeld(en|ent|ne|nere|nest|neste)|([st]iv|[ts]iv[te])|(løs|løs[te])|(gammel|gammelt|gamle|eldre|eldst|eldste)|(lit(en|[ae])|smått|små|lille|vesle||mindre|minst)|(lang|lang[te]|leng(re|st|ste))|(som|som(t|me))|(ende)|(dt|dte)|annerledes|likendes|ringe|rosa|søndre|søre|umake|(øde)|(syk|syk([te]|ere|est|este))|(myk|myk([te]|ere|est|este))|(fri|fri(tt|e|ere|est|este))|(blakk|blak(t|ke|kere|kest|keste)|blå|blå(tt|e|ere|est|este)|brun|brun([te]|ere|est|este)|grå|grå(tt|e|ere|est|este)|grøn|grøn([nt]|ne|nere|nest|neste)|gul|gul([te]|ere|est|este)|hvit|hvit([te]|ere|est|este)|klar|klar([te]|ere|est|este)|lilla|l(jo|y)s|l(jo|y)s([te]|ere|est|este)|oran(g|sj)e|rød|rø(tt|de|dere|dest|deste)|svart|svart(e|ere|est|este)|turkis|turkis[te])|(dags|dagse)|(sen|sen([te]|ere|est|este)))$)")
     # melléknevek           oki
-    advre = re.compile(r"((vel|enn|ennu|hv(em|or)|gjerne|heller|helst|her|der|hvorfor|hva|hvordan|hvorledes|åssen|inatt|imorgen|idag|ikveld|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|ofte|ofte(re|st|ste)|aldri|alltid|sjeldsynt|kan(skje|hende)|selve|sjølve|selveste|sakte)|[a-zåøæ]*(igens|igvis)$)")
+    advre = re.compile(r"((herinne|inne|ute|herute|derinne|derute|vel|enn|ennu|hv(em|or)|gjerne|begge|heller|helst|her|der|hvorfor|hva|hvordan|hvorledes|åssen|inatt|imorgen|idag|ikveld|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|ofte|ofte(re|st|ste)|aldri|alltid|sjeldsynt|kan(skje|hende)|selve|sjølve|selveste|sakte|straks)|[a-zåøæ]*(igens|igvis)$)")
     # határozószók          oki
     # ska kollas innan adjektiven
     pronomre = re.compile(r"((jer|eder|de[ntm]|noen|noe|inge[nt]*|[smd]eg|oss|dere|deres|de|vi|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|jeg|du|ha[nm]|hun|dens|dets|denne|dette|disse|dennes|dettes|disses|selv|sjøl|hvilke[nt]|hvilke)$)")
     # névmások              oki
     tallre = re.compile(r"([a-zåøæ]*(først|første|én|to|annen|annet|andre|anna|(tre|tredje|fire|fjerde|fem|femte|seks|sjette|syv|sjuende|åtte|åttende|(ni|ti)(ende)*|elleve|ellevte|tolv|tolvte|(tretten|fjorten|femten|seksten|sytten|atten|nitten)(de)*|tjue|tjue(en|ett|nde)|(tretti|førti|femti|seksti|sytti|åtti|nitti)(en|ett|et|ende)*|(hundre)(de)*|(tusen)(de)*|(million)(te)*|milliard(te)*)(del|delen|deler|delene)*|halvannen|halvannet|dobbel|dobbelt|doble)$)")
     # számnevek             oki
-    core = re.compile(r"((mens|om|hvis|og|eller|men|så|å|at|som|da)$)")
+    core = re.compile(r"((mens|hvis|og|eller|men|så|å|at|som|da)$)")
     # kötőszavak            oki
     interre = re.compile(r"((nei|ja|adjø|ah|aha|ai|akk|amen|au|basta|bjeff|bravo|bu|bø|eia|faen|fint|gratla|ha|hallo|he|hei|hi|hu|huff|hæ|jada|jaggu|jo|joda|klukk|knegg|konge|kvekk|kykeliky|mjau|morn|neida|nja|no|nøff|pass|puss|pytt|rassh[oø]l|rett|sikkert|særlig|takk|tja|uff|unnskyld|ve|velkommen|voff|æsj|beklager|hilsen|fett|greit|nydelig)$)")
     # interjekciók          oki
-    prepre = re.compile(r"((ved|ad|med|att|attpå|av|bak|bortom|etter|for|foran|formedelst|fra|før|gjennom|hos|i|ifra|ifølge|igjennom|imot|innafor|innen|innenfor|inn|inni|istedenfor|mellom|mot|omkring|oppover|oppå|opp|ovenfor|over|overfor|på|til|uansett|under|uten|utenfor|utenfra|van|yvi)$)")
+    prepre = re.compile(r"((tilbake|ved|ad|med|att|attpå|av|bak|bortom|etter|for|foran|formedelst|fra|før|gjennom|hos|i|ifra|ifølge|innafor|innen|innenfor|inni|istedenfor|mellom|mot|omkring|oppover|oppå|ovenfor|over|overfor|på|til|uansett|under|uten|utenfor|enfra|derfra|herfra|van|yvi)$)")
     # prepozíciók           oki
+    partre = re.compile(r"((om|sønder|sammen|ut|inn|opp|igang|igjen|bort|forbi|igjennom|imot|efter|frem|atter|)$)")
+    # partiklar             oki
     usikkerre = re.compile(r"([a-zåøæ]*(et|ets|te|skap|skap(e[rts]|e|ets|er|es|ere|erer)|fe|fer)$)")
     #                       oki
 
@@ -130,6 +133,9 @@ def sortend(lista):
         elif lista[i] == "er":
             verb.addLast(lista[i])
             lista[i] = [lista[i], "verb"]
+        elif partre.match(lista[i]):
+            verb.addLast(lista[i])
+            lista[i] = [lista[i], "part"]
         elif orevre.match(lista[i]):
             verb.addLast(lista[i])
             lista[i] = [lista[i], "verb"]
@@ -204,16 +210,16 @@ def sortend(lista):
             synt = _syntax(a, kollade)
             if synt == "sub":
                 sub.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], "sub"]
-                kollade[lista[a[5]]] = "sub"
+                lista[a[5]] = [lista[a[5]], synt]
+                kollade[lista[a[5]]] = synt
             elif synt == "verb":
                 verb.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], "verb"]
-                kollade[lista[a[5]]] = "verb"
+                lista[a[5]] = [lista[a[5]], synt]
+                kollade[lista[a[5]]] = synt
             elif synt == "adj":
                 adj.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], "adj"]  # en kastet boll
-                kollade[lista[a[5]]] = "adj"
+                lista[a[5]] = [lista[a[5]], sytn]  # en kastet boll
+                kollade[lista[a[5]]] = synt
             else:
                 resten.addLast(lista[a[5]])
                 lista[a[5]] = [lista[a[5]], "oklart"]
