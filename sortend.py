@@ -117,7 +117,7 @@ def sortend(lista):
     # interjekciók          oki
     prepre = re.compile(r"((tilbake|ved|ad|med|att|attpå|av|bak|bortom|etter|for|foran|formedelst|fra|før|gjennom|hos|i|ifra|ifølge|innafor|innen|innenfor|inni|istedenfor|mellom|mot|omkring|oppover|oppå|ovenfor|over|overfor|på|til|uansett|under|uten|utenfor|enfra|derfra|herfra|van|yvi)$)")
     # prepozíciók           oki
-    partre = re.compile(r"((om|vekk|sønder|sammen|ut|inn|opp|igang|igjen|bort|forbi|igjennom|imot|efter|frem|atter|)$)")
+    partre = re.compile(r"((dank|ned|unna|oppi|om|vekk|sønder|sammen|ut|inn|opp|igang|igjen|bort|forbi|igjennom|imot|efter|frem|atter|)$)")
     # partiklar             oki
     usikkerre = re.compile(r"([a-zåøæ]*(et|ets|te|skap|skap(e[rts]|e|ets|er|es|ere|erer)|fe|fer)$)")
     #                       oki
@@ -210,17 +210,17 @@ def sortend(lista):
             synt = _syntax(a, kollade)
             if synt == "sub":
                 sub.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], synt]
+                lista[a[5]][1] = synt
                 kollade[lista[a[5]]] = synt
             elif synt == "verb":
                 verb.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], synt]
+                lista[a[5]][1] = synt
                 kollade[lista[a[5]]] = synt
             elif synt == "adj":
                 adj.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], sytn]  # en kastet boll
+                lista[a[5]][1] = synt  # en kastet boll
                 kollade[lista[a[5]]] = synt
             else:
                 resten.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]], "oklart"]
+                lista[a[5]][1] = synt
         usikker.clear()

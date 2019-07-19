@@ -138,6 +138,15 @@ def syntax(lista, dictionary):
             output = "verb"
         elif ((lista[4] is ("adv" or "adj")) and ((lista[6] is ("pron" or "tall" or "sub")) or (type(lista[6]) is int))):
             output = "verb"
+        elif ((lista[4] is "pron") and ((lista[6] is "adj") or (type(lista[6]) is int)) and ((lista[7] is "verb") or (type(lista[7]) is int))):
+            output = "sub"
+        elif ((lista[3] is "pron") and (lista[4] is ("sub" or "oklart")) and ((lista[6] is "verb") or (type(lista[6]) is int))):
+            # consequently from the case above
+            output = "adj"
+        elif ((lista[4] is "konj") and (lista[6] is ("adv" or "adj" or "prepo" or "part"))):
+            output = "verb"
+        # elif ():
+        #     output = ""
         else:
             output = "oklart"
         return output
