@@ -136,6 +136,8 @@ def syntax(lista, dictionary):
             output = "verb"
         elif ((lista[3] is "oklart") and (lista[4] is ("adv" or "adj")) and (lista[6] is ("pron" or "prepo" or "part"))):
             output = "verb"
+        elif ((lista[4] is ("adv" or "adj")) and ((lista[6] is ("pron" or "tall" or "sub")) or (type(lista[6]) is int))):
+            output = "verb"
         else:
             output = "oklart"
         return output

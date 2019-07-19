@@ -89,9 +89,9 @@ def sortend(lista):
     konj = LinkedList()
     inter = LinkedList()
     prepo = LinkedList()
+    part = LinkedList()
     usikker = LinkedList()
     resten = LinkedList()
-    part = LinkedList()
     
     subre = re.compile(r"([a-zåæø]*(([nt]iker|[nt]iker(e(n|ne)|e)|rn|rne([rnt]|ne))|(år|året|årene|morgen|måned|kveld|dag|minutt|sekund|uke|(sekunde|minutte|uke|månede|dage|kvelde|morgene)([tnr]|ne)|natt|natt(a|en)|nette(r|ne))|(mål|måle(t|ne))|(by|bye(n|r|ne))|(((en|all)er|lo|strate|litur|ele|kirur|al)gi|((en|all)er|lo|strate|litur|ele|kirur|al)gie([nr]|ne))|(else|else([ntra]|ne))|(hete([nr]|ne))|(ing|inge([nr]|ne))|(ikk|ikken|(?<!s)ikker|ikkene)|(skap|skap((e[tn]|(ne))|a))|(sjon|sjone([nr]|ne))|(ment|mente([tra]|(ne)))|(en|ene)|(ett|ette(t|ne))|(mel|melen|mle(r|ne))|(neste|neste([nr]|ne))|(iste|iste([nr]|ne))|([lg]ås|[gl]åsen|gåsa|gj[eæ]ss|[gl]åser|[gl]åsene|gj[æe]ssene)|(ang|angen|[ea]nger|[ea]ngene)|((f|sl)ange|(f|sl)angen|(f|sl)anger|(f|sl)angene)|(age|age([rn]|ne))|(lager|lageret|lagret|lagre|lagrene|lagerene)|(areal|eale([tr]|ne))|(brev|brev(et|er|ene|a))|(f|fe([tn]|ne)|afer)|(am|ame|ame([nr]|ne)|amme([nrt]|ne))|(([ts]|eni)ør|([ts]|eni)øre([nr]|ne))|(yre|yre([tnr]|ne))|(ed|ede([trn]|ne))|(ti|ti(e([tnr]|ne)|[tn]))|(an|a(n|nn)e([nr]|ne))|(m[ae]n|mannen|mennene)|(ende([nr]|ne))|((til|for)hør(et|ene))|(ramme([nr]|ene))|((?<!be)stemme([nr]|ne))|(erne))[s]*$)")
     # főnevek               oki
