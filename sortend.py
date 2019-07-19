@@ -1,7 +1,7 @@
 # Richárd Bagi, Norsk Projekt 2019
 
 # from splittare import splittare
-from syntax import syntax
+from syntax_sva import syntax_sva
 import re
 # import tkinter as tk
 
@@ -104,10 +104,10 @@ def sortend(lista):
     # ska kollas först
     adjre = re.compile(r"([a-zåøæ]*((ig|ig([te]|ste|st|ere))|(bar|bar(t|e))|(full|full([te]|e(re|st|ste)))|(sikker|sikkert|sikre|sikre(re|st|ste))|(ell|ell[te])|(sk|sk(t|e))|sjeld(en|ent|ne|nere|nest|neste)|([st]iv|[ts]iv[te])|(løs|løs[te])|(gammel|gammelt|gamle|eldre|eldst|eldste)|(lit(en|[ae])|smått|små|lille|vesle||mindre|minst)|(lang|lang[te]|leng(re|st|ste))|(som|som(t|me))|(ende)|(dt|dte)|annerledes|likendes|ringe|rosa|søndre|søre|umake|(øde)|(syk|syk([te]|ere|est|este))|(myk|myk([te]|ere|est|este))|(fri|fri(tt|e|ere|est|este))|(blakk|blak(t|ke|kere|kest|keste)|blå|blå(tt|e|ere|est|este)|brun|brun([te]|ere|est|este)|grå|grå(tt|e|ere|est|este)|grøn|grøn([nt]|ne|nere|nest|neste)|gul|gul([te]|ere|est|este)|hvit|hvit([te]|ere|est|este)|klar|klar([te]|ere|est|este)|lilla|l(jo|y)s|l(jo|y)s([te]|ere|est|este)|oran(g|sj)e|rød|rø(tt|de|dere|dest|deste)|svart|svart(e|ere|est|este)|turkis|turkis[te])|(dags|dagse)|(sen|sen([te]|ere|est|este)))$)")
     # melléknevek           oki
-    advre = re.compile(r"((herinne|inne|ute|herute|derinne|derute|vel|enn|ennu|hv(em|or)|gjerne|begge|heller|helst|her|der|hvorfor|hva|hvordan|hvorledes|åssen|inatt|imorgen|idag|ikveld|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|ofte|ofte(re|st|ste)|aldri|alltid|sjeldsynt|kan(skje|hende)|selve|sjølve|selveste|sakte|straks)|[a-zåøæ]*(igens|igvis)$)")
+    advre = re.compile(r"((allerede|[hd]erinne|inne|ute|[hd]erpå|[hd]er(ut|ned|opp)e|vel|enn|ennu|hv(em|or)|gjerne|begge|heller|helst|her|der|hvorfor|hva|hvordan|hvorledes|åssen|inatt|imorgen|idag|ikveld|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|ofte|ofte(re|st|ste)|aldri|stundom|alltid|sjeldsynt|kan(skje|hende)|selve|sjølve|selveste|sakte|straks)|[a-zåøæ]*(igens|igvis)$)")
     # határozószók          oki
     # ska kollas innan adjektiven
-    pronomre = re.compile(r"((jer|eder|de[ntm]|noen|noe|inge[nt]*|[smd]eg|oss|dere|deres|de|vi|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|jeg|du|ha[nm]|hun|dens|dets|denne|dette|disse|dennes|dettes|disses|selv|sjøl|hvilke[nt]|hvilke)$)")
+    pronomre = re.compile(r"((hver|all|alt|alle|jer|eder|de[ntm]|noen|noe|inge[nt]*|[smd]eg|oss|dere|deres|de|vi|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|jeg|du|ha[nm]|hun|dens|dets|denne|dette|disse|dennes|dettes|disses|selv|sjøl|hvilke[nt]|hvilke)$)")
     # névmások              oki
     tallre = re.compile(r"([a-zåøæ]*(først|første|én|to|annen|annet|andre|anna|(tre|tredje|fire|fjerde|fem|femte|seks|sjette|syv|sjuende|åtte|åttende|(ni|ti)(ende)*|elleve|ellevte|tolv|tolvte|(tretten|fjorten|femten|seksten|sytten|atten|nitten)(de)*|tjue|tjue(en|ett|nde)|(tretti|førti|femti|seksti|sytti|åtti|nitti)(en|ett|et|ende)*|(hundre)(de)*|(tusen)(de)*|(million)(te)*|milliard(te)*)(del|delen|deler|delene)*|halvannen|halvannet|dobbel|dobbelt|doble)$)")
     # számnevek             oki
@@ -128,6 +128,9 @@ def sortend(lista):
             lista[i] = [lista[i], "tall"]   # Man förändrar elementet innanför listan
                                             # för bättre tidskomplexitet.
         elif lista[i] == "ei":
+            tall.addLast(lista[i])
+            lista[i] = [lista[i], "tall"]
+        elif lista[i] == "et":
             tall.addLast(lista[i])
             lista[i] = [lista[i], "tall"]
         elif lista[i] == "er":
@@ -171,7 +174,9 @@ def sortend(lista):
             lista[i] = [lista[i], i]
         else:
             resten.addLast(lista[i])
-            lista[i] = [lista[i], "oklart"]
+            lista[i] = [lista[i], "oklart", i]
+
+    # Check usikker for verbs, substantives and adjectives
     n = usikker.size()
     usikre = usikker.getlist(n)
     if n>0:
@@ -224,3 +229,56 @@ def sortend(lista):
                 resten.addLast(lista[a[5]])
                 lista[a[5]][1] = synt
         usikker.clear()
+
+    # Check the rest:
+    n = resten.size()
+    kvarstar = resten.getlist(n)
+    if n>0:
+        a = [""]*11
+        for i in range(n):
+            elem = kvarstar[i]
+            a[5] = elem[2]
+            if a[5] < 5:
+                j = 0
+                while a[5]-j > 0:
+                    a[4-j] = lista[a[5]-j-1][1]
+                    j += 1
+                j = 0
+                while (j <= 4 or a[5]+j <= len(lista)):
+                    a[6+j] = lista[a[5]+j+1][1]
+                    j +=1
+            elif a[5] > len(lista)-5:
+                j = 0
+                while j <= 4:
+                    a[4-j] = lista[a[5]-j-1][1]
+                    j += 1
+                j = 0
+                while (j < 5 or len(lista) > a[5]+j):
+                    a[6+j] = lista[a[5]+j+1][1]
+                    j += 1
+            else:
+                j = 0
+                while j <= 4:
+                    a[4-j] = lista[a[5]-j-1][1]
+                    j += 1
+                j = 0
+                while j <= 4:
+                    a[6+j] = lista[a[5]+j+1][1]
+                    j +=1
+            kollade = {}
+            synt = _syntax(a, kollade)
+            if synt == "sub":
+                sub.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]][0],synt]
+                kollade[lista[a[5]]] = synt
+            elif synt == "verb":
+                verb.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]][0],synt]
+                kollade[lista[a[5]]] = synt
+            elif synt == "adj":
+                adj.addLast(lista[a[5]])
+                lista[a[5]] = [lista[a[5]][0],synt]
+                kollade[lista[a[5]]] = synt
+            else:
+                lista[a[5]] = [lista[a[5]][0], "oklart"]
+        resten.clear()

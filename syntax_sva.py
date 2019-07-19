@@ -1,7 +1,8 @@
 # Richárd Bagi, Norsk Projekt 2019
 
-def syntax(lista, dictionary):
-    """Find the word class based on the context. Return the word class."""
+def syntax_sva(lista, dictionary):
+    """Find the word class that might be either substantive, verb or adjective based on their
+    endings with the help of the context. Return the word class."""
     if lista[5] in dictionary:
         return dictionary[lista[5]]
     else:
@@ -143,10 +144,20 @@ def syntax(lista, dictionary):
         elif ((lista[3] is "pron") and (lista[4] is ("sub" or "oklart")) and ((lista[6] is "verb") or (type(lista[6]) is int))):
             # consequently from the case above
             output = "adj"
-        elif ((lista[4] is "konj") and (lista[6] is ("adv" or "adj" or "prepo" or "part"))):
+        elif ((lista[4] is "konj") and (lista[6] is ("adv" or "adj" or "pron" or "prepo" or "part"))):
             output = "verb"
-        # elif ():
-        #     output = ""
+        elif ((lista[4] is "adv") and (lista[6] is "adv")):
+            output = "verb"
+        elif ((lista[4] is "adv") and (lista[6] is ("prepo" or "part")) and (lista[7] is "adv")):
+            output = "verb"
+        elif ((lista[4] is "pron") and (lista[6] is ("adv" or "adj"))):
+            output = "verb"
+        elif ((lista[4] is "pron") and (lista[6] is ("prepo" or "part")) and (lista[7] is ("adv" or "adj"))):
+            output = "verb"
+        elif (((lista[3] and lista[4]) is "pron") and (lista[6] is not "verb")):
+            output = "verb"
+        elif (((lista[3] and lista[4]) is "pron") and (lista[6] is "verb")):
+            output = "sub"
         else:
             output = "oklart"
         return output
