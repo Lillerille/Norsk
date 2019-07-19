@@ -161,3 +161,8 @@ def syntax_sva(lista, dictionary):
         else:
             output = "oklart"
         return output
+
+def syntax_gen(lista, dictionary):
+    """Find the word class of the rest of the words based on the context.
+    Return the word class."""
+    return
