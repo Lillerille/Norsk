@@ -139,7 +139,7 @@ def sortend(lista):
             verb.addLast(lista[i])
             lista[i] = [lista[i], "verb"]
         elif partre.match(lista[i]):
-            verb.addLast(lista[i])
+            part.addLast(lista[i])
             lista[i] = [lista[i], "part"]
         elif orevre.match(lista[i]):
             verb.addLast(lista[i])
@@ -214,7 +214,7 @@ def sortend(lista):
                     a[6+j] = lista[a[5]+j+1][1]
                     j +=1
             kollade = {}
-            synt = _syntax(a, kollade)
+            synt = syntax_sva(a, kollade)
             if synt == "sub":
                 sub.addLast(lista[a[5]])
                 lista[a[5]][1] = synt
