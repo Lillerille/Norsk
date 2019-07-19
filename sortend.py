@@ -117,7 +117,7 @@ def sortend(lista):
     # interjekciók          oki
     prepre = re.compile(r"((tilbake|ved|ad|med|att|attpå|av|bak|bortom|etter|for|foran|formedelst|fra|før|gjennom|hos|i|ifra|ifølge|innafor|innen|innenfor|inni|istedenfor|mellom|mot|omkring|oppover|oppå|ovenfor|over|overfor|på|til|uansett|under|uten|utenfor|enfra|derfra|herfra|van|yvi)$)")
     # prepozíciók           oki
-    partre = re.compile(r"((om|sønder|sammen|ut|inn|opp|igang|igjen|bort|forbi|igjennom|imot|efter|frem|atter|)$)")
+    partre = re.compile(r"((om|vekk|sønder|sammen|ut|inn|opp|igang|igjen|bort|forbi|igjennom|imot|efter|frem|atter|)$)")
     # partiklar             oki
     usikkerre = re.compile(r"([a-zåøæ]*(et|ets|te|skap|skap(e[rts]|e|ets|er|es|ere|erer)|fe|fer)$)")
     #                       oki
