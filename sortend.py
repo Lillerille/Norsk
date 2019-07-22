@@ -176,7 +176,7 @@ def sortend(lista):
             lista[i] = [lista[i], i]
         else:
             resttemp.addLast(lista[i])
-            lista[i] = [lista[i], "oklart", i]
+            lista[i] = [lista[i], "oklart"]
 
     # Check usikker for verbs, substantives and adjectives
     n = usikker.size()
@@ -237,54 +237,31 @@ def sortend(lista):
     kvarstar = resttemp.getlist(n)
     if n>0:
         a = [""]*11
-        for i in range(n):
-            elem = kvarstar[i]
-            a[5] = elem[2]
-            if a[5] < 5:
-                j = 0
-                while a[5]-j > 0:
-                    a[4-j] = lista[a[5]-j-1][1]
-                    j += 1
-                j = 0
-                while (j <= 4 or a[5]+j <= len(lista)):
-                    a[6+j] = lista[a[5]+j+1][1]
-                    j +=1
-            elif a[5] > len(lista)-5:
-                j = 0
-                while j <= 4:
-                    a[4-j] = lista[a[5]-j-1][1]
-                    j += 1
-                j = 0
-                while (j < 5 or len(lista) > a[5]+j):
-                    a[6+j] = lista[a[5]+j+1][1]
-                    j += 1
+        for i in range(len(lista)):
+            if i == 0:
+                for j in range(6):
+                    a[5+j] = lista[j]
             else:
-                j = 0
-                while j <= 4:
-                    a[4-j] = lista[a[5]-j-1][1]
-                    j += 1
-                j = 0
-                while j <= 4:
-                    a[6+j] = lista[a[5]+j+1][1]
-                    j +=1
-            kollade = {}
-            synt = _syntax(a, kollade)
-            if synt == "sub":
-                sub.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]][0],synt]
-                kollade[lista[a[5]]] = synt
-            elif synt == "verb":
-                verb.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]][0],synt]
-                kollade[lista[a[5]]] = synt
-            elif synt == "adj":
-                adj.addLast(lista[a[5]])
-                lista[a[5]] = [lista[a[5]][0],synt]
-                kollade[lista[a[5]]] = synt
-            else:
-                lista[a[5]] = [lista[a[5]][0], "oklart"]
-                restout.addLast(lista[a[5]])
-            resttemp.clear()
-
+                for j in range(10):
+                    a[k] = a[k+1]
+                    a[10] = lista[5+j]
+            if a[5][1] is "oklart":
+                kollade = {}
+                synt = syntax_gen(a, kollade)
+                if synt == "sub":
+                    sub.addLast(lista[a[5]])
+                    lista[a[5]] = [lista[a[5]][0],synt]
+                    kollade[lista[a[5]]] = synt
+                elif synt == "verb":
+                    verb.addLast(lista[a[5]])
+                    lista[a[5]] = [lista[a[5]][0],synt]
+                    kollade[lista[a[5]]] = synt
+                elif synt == "adj":
+                    adj.addLast(lista[a[5]])
+                    lista[a[5]] = [lista[a[5]][0],synt]
+                    kollade[lista[a[5]]] = synt
+                else:
+                    restout.addLast(lista[a[5]][0])
+        resttemp.clear()
     # structure data for output
     return
