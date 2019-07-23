@@ -162,7 +162,13 @@ def syntax_sva(lista, dictionary):
             output = "oklart"
         return output
 
-def syntax_gen(lista, dictionary):
+def syntax_gen(i, dictionary):
     """Find the word class of the rest of the words based on the context.
     Return the word class."""
+    output = ""
+    while True:
+        if lista[i-1][1] is ("adj" or "adv" or "konj"):
+            pass
+        # elif lista[i-1][0] is ("den" or "det" or "de" or "der" or "min" or "din" or "sin" or "hans" or "hennes" or "vår" or "deres"):
+        #     output = ""
     return

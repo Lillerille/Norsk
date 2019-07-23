@@ -183,6 +183,7 @@ def sortend(lista):
     usikre = usikker.getlist(n)
     if n>0:
         a = [""]*11
+        kollade = {}
         for i in range(n):
             elem = usikre[i]
             a[5] = elem[1]
@@ -213,22 +214,21 @@ def sortend(lista):
                 while j <= 4:
                     a[6+j] = lista[a[5]+j+1][1]
                     j +=1
-            kollade = {}
             synt = syntax_sva(a, kollade)
             if synt == "sub":
-                sub.addLast(lista[a[5]])
+                sub.addLast(lista[a[5]][0])
                 lista[a[5]][1] = synt
-                kollade[lista[a[5]]] = synt
+                kollade[lista[a[5]][0]] = synt
             elif synt == "verb":
-                verb.addLast(lista[a[5]])
+                verb.addLast(lista[a[5]][0])
                 lista[a[5]][1] = synt
-                kollade[lista[a[5]]] = synt
+                kollade[lista[a[5]][0]] = synt
             elif synt == "adj":
-                adj.addLast(lista[a[5]])
+                adj.addLast(lista[a[5]][0])
                 lista[a[5]][1] = synt  # en kastet boll
-                kollade[lista[a[5]]] = synt
+                kollade[lista[a[5]][0]] = synt
             else:
-                resttemp.addLast(lista[a[5]])
+                resttemp.addLast(lista[a[5]][0])
                 lista[a[5]][1] = synt
         usikker.clear()
 
@@ -238,37 +238,24 @@ def sortend(lista):
     if n>0:
         a = [["",""]]*11
         length = len(lista)
+        kollade = {}
         for i in range(length):
-            if i == 0:
-                if length < 6:
-                    for j in range(length):
-                        a[5+j] = lista[j]
-                    for j in range(6):
-                        a[5+j] = lista[j]
-            else:
-                for k in range(10):
-                    a[k] = a[k+1]
-                    if i >= length - 5:
-                        a[10] == ["",""]
-                    else:
-                        a[10] = lista[i+5]
-            if a[5][1] is "oklart":
-                kollade = {}
-                synt = syntax_gen(a, kollade)
+            if lista[i][1] is "oklart":
+                synt = syntax_gen(i, kollade)
                 if synt == "sub":
-                    sub.addLast(lista[a[5]])
-                    lista[a[5]] = [lista[a[5]][0],synt]
-                    kollade[lista[a[5]]] = synt
+                    sub.addLast(lista[i][0])
+                    lista[i] = [lista[i][0],synt]
+                    kollade[lista[i][0]] = synt
                 elif synt == "verb":
-                    verb.addLast(lista[a[5]])
-                    lista[a[5]] = [lista[a[5]][0],synt]
-                    kollade[lista[a[5]]] = synt
+                    verb.addLast(lista[i][0])
+                    lista[a[5]] = [lista[i][0],synt]
+                    kollade[lista[i][0]] = synt
                 elif synt == "adj":
-                    adj.addLast(lista[a[5]])
-                    lista[a[5]] = [lista[a[5]][0],synt]
-                    kollade[lista[a[5]]] = synt
+                    adj.addLast(lista[i][0])
+                    lista[a[5]] = [lista[i][0],synt]
+                    kollade[lista[i][0]] = synt
                 else:
-                    restout.addLast(lista[a[5]][0])
+                    restout.addLast(lista[i][0])
         resttemp.clear()
     # structure data for output
     return
