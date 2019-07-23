@@ -171,4 +171,5 @@ def syntax_gen(i, dictionary):
             pass
         # elif lista[i-1][0] is ("den" or "det" or "de" or "der" or "min" or "din" or "sin" or "hans" or "hennes" or "vår" or "deres"):
         #     output = ""
+        # http://runeberg.org/dukkhjem/1.html
     return
