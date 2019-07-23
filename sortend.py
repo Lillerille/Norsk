@@ -236,15 +236,22 @@ def sortend(lista):
     n = resttemp.size()
     kvarstar = resttemp.getlist(n)
     if n>0:
-        a = [""]*11
-        for i in range(len(lista)):
+        a = [["",""]]*11
+        length = len(lista)
+        for i in range(length):
             if i == 0:
-                for j in range(6):
-                    a[5+j] = lista[j]
+                if length < 6:
+                    for j in range(length):
+                        a[5+j] = lista[j]
+                    for j in range(6):
+                        a[5+j] = lista[j]
             else:
-                for j in range(10):
+                for k in range(10):
                     a[k] = a[k+1]
-                    a[10] = lista[5+j]
+                    if i >= length - 5:
+                        a[10] == ["",""]
+                    else:
+                        a[10] = lista[i+5]
             if a[5][1] is "oklart":
                 kollade = {}
                 synt = syntax_gen(a, kollade)
