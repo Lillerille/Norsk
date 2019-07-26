@@ -106,7 +106,10 @@ def sortend(lista):
     # ska kollas först
     adjre = re.compile(r"([a-zåøæ]*((ig|ig([te]|ste|st|ere))|(bar|bar(t|e))|(full|full([te]|e(re|st|ste)))|(sikker|sikkert|sikre|sikre(re|st|ste))|(ell|ell[te])|(sk|sk(t|e))|sjeld(en|ent|ne|nere|nest|neste)|([st]iv|[ts]iv[te])|(løs|løs[te])|(gammel|gammelt|gamle|eldre|eldst|eldste)|(lit(en|[ae])|smått|små|lille|vesle||mindre|minst)|(lang|lang[te]|leng(re|st|ste))|(som|som(t|me))|(ende)|(dt|dte)|annerledes|likendes|ringe|rosa|søndre|søre|umake|(øde)|(syk|syk([te]|ere|est|este))|(myk|myk([te]|ere|est|este))|(fri|fri(tt|e|ere|est|este))|(blakk|blak(t|ke|kere|kest|keste)|blå|blå(tt|e|ere|est|este)|brun|brun([te]|ere|est|este)|grå|grå(tt|e|ere|est|este)|grøn|grøn([nt]|ne|nere|nest|neste)|gul|gul([te]|ere|est|este)|hvit|hvit([te]|ere|est|este)|klar|klar([te]|ere|est|este)|lilla|l(jo|y)s|l(jo|y)s([te]|ere|est|este)|oran(g|sj)e|rød|rø(tt|de|dere|dest|deste)|svart|svart(e|ere|est|este)|turkis|turkis[te])|(dags|dagse)|(sen|sen([te]|ere|est|este)))$)")
     # melléknevek           oki
-    advre = re.compile(r"((allerede|[hd]erinne|midt|inne|ute|[hd]erpå|[hd]er(ut|ned|opp)e|vel|enn|ennu|hv(em|or)|gjerne|begge|heller|helst|her|der|hvorfor|hva|hvordan|hvorledes|åssen|inatt|imorgen|idag|ikveld|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|ofte|ofte(re|st|ste)|aldri|stundom|alltid|sjeldsynt|kan(skje|hende)|selve|sjølve|selveste|sakte|straks)|[a-zåøæ]*(igens|igvis)$)")
+    advre = re.compile(r"((allerede|[hd]erpå|vel|gjerne|begge|heller|helst|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|kan(skje|hende)|selve|sjølve|selveste)|[a-zåøæ]*(igens|igvis)$)")
+    tidsadvre = re.compile(r"((enn|ennu|inatt|imorgen|idag|ikveld|ofte|ofte(re|st|ste)|aldri|stundom|alltid|sjeldsynt|sakte|straks)$)")
+    rumsadvre = re.compile(r"(([hd]erinne|midt|inne|ute|[hd]er(ut|ned|opp)e|her|der)$)")
+    fragere = re.compile(r"((hv(em|or)|hvorfor|hva|hvor(dan|ledes)|åssen)$)")
     # határozószók          oki
     # ska kollas innan adjektiven
     pronomre = re.compile(r"((hver|all|alt|alle|jer|eder|de[ntm]|noen|noe|inge[nt]*|[smd]eg|oss|dere|deres|de|vi|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|jeg|du|ha[nm]|hun|dens|dets|denne|dette|disse|dennes|dettes|disses|selv|sjøl|hvilke[nt]|hvilke)$)")
@@ -150,6 +153,15 @@ def sortend(lista):
         elif interre.match(lista[i]):
             inter.addLast(lista[i])
             lista[i] = [lista[i], "inter"]
+        elif tidsadvre.match(lista[i]):
+            adv.addLast(lista[i])
+            lista[i] = [lista[i], "tidsadv"]
+        elif rumsadvre.match(lista[i]):
+            adv.addLast(lista[i])
+            lista[i] = [lista[i], "rumsadv"]
+        elif fragere.match(lista[i]):
+            adv.addLast(lista[i])
+            lista[i] = [lista[i], "frageord"]
         elif prepre.match(lista[i]):
             prepo.addLast(lista[i])
             lista[i] = [lista[i], "prepo"]
