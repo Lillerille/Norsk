@@ -79,18 +79,19 @@ class LinkedList:
         return _count
 
 def sortend(lista):
-    """Sort the elements of input list to word class after endings.
+    """Sort the elements of input list to word class after endings and syntax.
     Returns a list of lists with the sorted elements."""
     sub = LinkedList()
     verb = LinkedList()
     adj = LinkedList()
     adv = LinkedList()
-    pron = LinkedList()
-    tall = LinkedList()
-    konj = LinkedList()
-    inter = LinkedList()
-    prepo = LinkedList()
-    part = LinkedList()
+    anadv = {}
+    pron = {}
+    tall = {}
+    konj = {}
+    inter = {}
+    prepo = {}
+    part = {}
     usikker = LinkedList()
     resttemp = LinkedList()
     restout = LinkedList()
@@ -109,10 +110,16 @@ def sortend(lista):
     advre = re.compile(r"((allerede|[hd]erpå|vel|gjerne|begge|heller|helst|ikke|mer|mest|fler|flere|flest|få|mere|mange|mye|meget|kan(skje|hende)|selve|sjølve|selveste)|[a-zåøæ]*(igens|igvis)$)")
     tidsadvre = re.compile(r"((enn|ennu|inatt|imorgen|idag|ikveld|ofte|ofte(re|st|ste)|aldri|stundom|alltid|sjeldsynt|sakte|straks)$)")
     rumsadvre = re.compile(r"(([hd]erinne|midt|inne|ute|[hd]er(ut|ned|opp)e|her|der)$)")
-    fragere = re.compile(r"((hv(em|or)|hvorfor|hva|hvor(dan|ledes)|åssen)$)")
+    fragere = re.compile(r"((hv(em|or)|hvorfor|hva|hvor(dan|ledes)|åssen|hvilke[nt]|hvilke)$)")
     # határozószók          oki
     # ska kollas innan adjektiven
-    pronomre = re.compile(r"((hver|all|alt|alle|jer|eder|de[ntm]|noen|noe|inge[nt]*|[smd]eg|oss|dere|deres|de|vi|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|jeg|du|ha[nm]|hun|dens|dets|denne|dette|disse|dennes|dettes|disses|selv|sjøl|hvilke[nt]|hvilke)$)")
+    pronomre = re.compile(r"((hver|all|alt|alle|de[nt]|noen|noe|inge[nt]*|selv|sjøl)$)")
+    pospronre = re.compile(r"((deres|[smd]i(n|tt|ne)|vår|vår[te]|hans|hennes|dens|dets|inge[nt]*s|dennes|dettes|disses)$)")
+    # possessiva pronomen
+    psprre = re.compile(r"((dere|de|vi|jeg|du|han|hun|denne|dette|disse)$)")
+    # personliga pronomen på subjektform
+    poprre = re.compile(r"(([smd]eg|jer|eder|dem|oss|ham|henne)$)")
+    # personliga pronomen på objektform
     # névmások              oki
     tallre = re.compile(r"([a-zåøæ]*(først|første|én|to|annen|annet|andre|anna|(tre|tredje|fire|fjerde|fem|femte|seks|sjette|syv|sjuende|åtte|åttende|(ni|ti)(ende)*|elleve|ellevte|tolv|tolvte|(tretten|fjorten|femten|seksten|sytten|atten|nitten)(de)*|tjue|tjue(en|ett|nde)|(tretti|førti|femti|seksti|sytti|åtti|nitti)(en|ett|et|ende)*|(hundre)(de)*|(tusen)(de)*|(million)(te)*|milliard(te)*)(del|delen|deler|delene)*|halvannen|halvannet|dobbel|dobbelt|doble)$)")
     # számnevek             oki
